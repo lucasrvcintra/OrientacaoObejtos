@@ -34,7 +34,11 @@ class Escolaridade:
 
 escolaridade = Escolaridade()
 escolaridade.set_nome("Graduacao")
-funcionario = Funcionario(escolaridade)
+
+funcionario = Funcionario()
+funcionario.set_escolaridade(escolaridade)
+
 grupo = Grupo()
 grupo.set_presidente(funcionario)
+
 print(grupo.get_nome_escolaridade_presidente())

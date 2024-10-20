@@ -69,8 +69,8 @@ class Grupo:
 
 
 class Pais:
-    def __init__(self, nome):
-        self.nome = nome
+    def __init__(self):
+        self.nome = ""
 
     def get_nome(self):
         return self.nome
@@ -78,4 +78,18 @@ class Pais:
     def set_nome(self, nome):
         self.nome = nome
 
-        
+pais = Pais()
+pais.set_nome("Brasil")
+
+grupo = Grupo(pais)
+
+empresa = Empresa()
+empresa.set_grupo(grupo)
+
+departamento = Departamento()
+departamento.set_empresa(empresa)
+
+funcionario = Funcionario()
+funcionario.set_pais_alocacao(departamento)
+
+print(funcionario.get_nome_pais_alocacao_departamento())
