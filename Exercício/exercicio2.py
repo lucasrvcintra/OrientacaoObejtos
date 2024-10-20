@@ -1,40 +1,71 @@
 class Funcionario:
     def __init__(self):
-        self.departamento = None
+        self.pais_alocacao = None
 
     def get_pais_alocacao(self):
-        if self.departamento is None or self.departamento.empresa is None or self.departamento.empresa.grupo is None:
-            print("Informações incompletas sobre o funcionário, empresa ou grupo.")
-            return None
-        else:
-            return self.departamento.empresa.grupo.pais.get_nome()
+        return self.pais_alocacao
 
-    def set_departamento(self, departamento):
-        self.departamento = departamento
+    def set_pais_alocacao(self, pais_alocacao):
+        self.pais_alocacao = pais_alocacao
+
+    def get_nome_pais_alocacao_departamento(self):
+        if self.pais_alocacao == None:
+            print("Não existe pai")
+            exit()
+        else:
+            return self.pais_alocacao.get_pais_alocacao_departamento()
 
 
 class Departamento:
     def __init__(self):
         self.empresa = None
 
+    def get_empresa(self):
+        return self.empresa
+
     def set_empresa(self, empresa):
         self.empresa = empresa
 
+    def get_pais_alocacao_departamento(self):
+        if self.empresa == None:
+            print("Não existe empresa")
+            exit()
+        else:
+            return self.empresa.get_nome_pais_grupo()
 
 class Empresa:
     def __init__(self):
         self.grupo = None
+    
+    def get_grupo(self):
+        return self.grupo
 
     def set_grupo(self, grupo):
         self.grupo = grupo
 
+    def get_nome_pais_grupo(self):
+        if self.grupo == None:
+            print("Não existe grupo")
+            exit()
+        else:
+            return self.grupo.get_nome_pais()
+
 
 class Grupo:
-    def __init__(self):
-        self.pais = None
+    def __init__(self, pais):
+        self.set_pais(pais)
+
+    def get_pais(self):
+        return self.pais
 
     def set_pais(self, pais):
+        if pais == None:
+            print("Grupo não pode ficar sem pais")
+            exit()
         self.pais = pais
+
+    def get_nome_pais(self):
+        return self.pais.get_nome()
 
 
 class Pais:
@@ -44,20 +75,7 @@ class Pais:
     def get_nome(self):
         return self.nome
 
+    def set_nome(self, nome):
+        self.nome = nome
 
-# Criando instâncias e exemplo de uso
-pais_brasil = Pais("Brasil")
-grupo = Grupo()
-grupo.set_pais(pais_brasil)
-
-empresa = Empresa()
-empresa.set_grupo(grupo)
-
-departamento = Departamento()
-departamento.set_empresa(empresa)
-
-funcionario = Funcionario()
-funcionario.set_departamento(departamento)
-
-# Obtendo o país de alocação do funcionário
-print(funcionario.get_pais_alocacao())  # Deve imprimir "Brasil"
+        
